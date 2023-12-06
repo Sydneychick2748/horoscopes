@@ -16,7 +16,28 @@ function Home({ dataProps }) {
   const [noBtnText, setNoBtnText] = useState(false);
   const [yesBtnData, setYesBtnData] = useState([]);
   const [seeDateText, setSeeDateText] = useState(false);
-  const [dateComponentVisible, setDateComponentVisible] = useState(false);
+  const [dateComponentData, setDateComponentData] = useState([]);
+
+  function updateDateComponentData () {
+    let arr = []
+    // Extract all date ranges from the zodiac signs and map over the dateRange
+    data.forEach((sign) => {
+      const dateRangeArray = sign.dateRange.split(" - ");
+      const startDate = dateRangeArray[0];
+      const endDate = dateRangeArray[1];
+      // push in the sign and then update the object so that it contains the date object
+      const updatedSign = {
+        ...sign,
+        startDate: new Date(startDate).toLocaleDateString(),
+        endDate: new Date(endDate).toLocaleDateString(),
+      };
+
+      arr.push(updatedSign);
+    });
+
+    setDateComponentData(arr); // Update state with the new array
+  };
+
 
   function startBtnClick() {
     console.log("clicked");
@@ -38,7 +59,7 @@ function Home({ dataProps }) {
   function seeDateClick() {
     console.log("clicked");
     setSeeDateText(!seeDateText);
-    setDateComponentVisible(!dateComponentVisible); // Toggle visibility of DateComponent
+    updateDateComponentData();
   }
 
   return (
@@ -55,7 +76,7 @@ function Home({ dataProps }) {
                 ? "Click here to hide today's date"
                 : "Click here to see today's Date"}
             </button>
-            {dateComponentVisible ? <DateComponent data={data} /> : null}
+            {seeDateText && <DateComponent data={dateComponentData} />}
           </div>
 
           {/* if you click on the button I want to display the data for the boxes of signs */}
