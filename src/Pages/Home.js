@@ -1,66 +1,75 @@
-// 1. Make sure you have a home page
-// 1. Render a button on the home page
-// 2. When it’s clicked, the text in the button should change from start to hide and a paragraph should display to the user.
-// 3. The user should be able to toggle on and off
-//4. if the button is clicked then it should show hide on the button instead of start and if the hide button is showing a text will also appear saying "appear"
-
 import React, { useState } from "react";
 import HoroscopePicker from "../Components/HoroscopePicker";
 import DateComponent from "../Components/DateComponent";
+import ModelComp from "../Components/ModelComp";
 
 function Home({ dataProps }) {
-  console.log(dataProps, "dataProps");
+  // console.log(dataProps, "dataProps");
   const data = dataProps.horoscopes.astroSigns;
 
   const [showText, setShowText] = useState(false);
   const [noBtnText, setNoBtnText] = useState(false);
   const [yesBtnData, setYesBtnData] = useState([]);
   const [seeDateText, setSeeDateText] = useState(false);
-  const [dateComponentData, setDateComponentData] = useState([]);
+ 
+  
+  const currentDate = new Date();
+  const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+  const formattedDate = currentDate.toLocaleDateString("en-US", options);
 
-  function updateDateComponentData () {
-    let arr = []
-    // Extract all date ranges from the zodiac signs and map over the dateRange
-    data.forEach((sign) => {
-      const dateRangeArray = sign.dateRange.split(" - ");
-      const startDate = dateRangeArray[0];
-      const endDate = dateRangeArray[1];
-      // push in the sign and then update the object so that it contains the date object
-      const updatedSign = {
-        ...sign,
-        startDate: new Date(startDate).toLocaleDateString(),
-        endDate: new Date(endDate).toLocaleDateString(),
-      };
+  function getCurrentZodiacSign(todayDate) {
+    // Find the matching zodiac sign
+    const currentZodiacSign = data.find((horoscope) => {
+      const dateRange = horoscope.dateRange.split("-")
+      console.log(dateRange, "dateRange");
 
-      arr.push(updatedSign);
+      const currentDate = new Date(todayDate).toLocaleDateString('en-us');
+      const startDate = new Date(dateRange[0]).toLocaleDateString('en-us');
+      const endDate = new Date(dateRange[1]).toLocaleDateString('en-us');
+      console.log(endDate, currentDate, startDate.split().pop().toString(), "endDate");
+  
+      if (currentDate >= startDate && currentDate <= endDate) {
+        return true;
+      }
+  
+      return false;
     });
-
-    setDateComponentData(arr); // Update state with the new array
-  };
-
+  
+    return currentZodiacSign ? currentZodiacSign.sign : "Unknown";
+  }
 
   function startBtnClick() {
-    console.log("clicked");
+    // console.log("clicked");
     setShowText(!showText);
   }
 
   function yesBtnClick() {
-    console.log("clicked");
+    // console.log("clicked");
     const signNames = data.map((item) => item.sign);
     console.log(signNames, "signNames");
     setYesBtnData(signNames);
   }
 
+
+  // Function to handle box clicks
+  function handleEachBoxClick() {
+    // Implement your logic for handling box click here
+    console.log(`Box clicked`);
+  }
+
   function noBtnClick() {
-    console.log("clicked");
+    // console.log("clicked");
     setNoBtnText(true);
   }
 
   function seeDateClick() {
-    console.log("clicked");
+    // console.log("clicked");
     setSeeDateText(!seeDateText);
-    updateDateComponentData();
+    getCurrentZodiacSign();
   }
+
+
+
 
   return (
     <div className="home-container">
@@ -76,17 +85,31 @@ function Home({ dataProps }) {
                 ? "Click here to hide today's date"
                 : "Click here to see today's Date"}
             </button>
-            {seeDateText && <DateComponent data={dateComponentData} />}
+            {seeDateText && (
+              <DateComponent
+              currentZodiacSign={getCurrentZodiacSign}
+                currentDate={formattedDate}
+              />
+            )}
           </div>
 
           {/* if you click on the button I want to display the data for the boxes of signs */}
           <button className="yesBtn" onClick={yesBtnClick}>
             Yes, Please!
           </button>
+
           {yesBtnData.length > 0 && (
-            <HoroscopePicker data={data} yesBtnDataProps={yesBtnData} />
+            <HoroscopePicker
+              data={data}
+              yesBtnDataProps={yesBtnData}
+              onBoxClick={handleEachBoxClick} // Pass the handleEachBoxClick function
+            />
           )}
 
+
+          {/* when the button is clicked the data is showen and now on the data i need a button on every object to click  */}
+
+           <ModelComp/>
           {/* this has to show some text saying sorry to see you go when clicked */}
           <button className="noBtn" onClick={noBtnClick}>
             No, Thank you!

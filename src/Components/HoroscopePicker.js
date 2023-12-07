@@ -1,6 +1,7 @@
 import "../App.css";
 
 function HoroscopePicker(props) {
+    console.log( props.onBoxClick," onBoxClick")
   console.log(props.data, "props");
   console.log(props.yesBtnDataProps, "yesBtnDataProps")
   return (
@@ -8,8 +9,9 @@ function HoroscopePicker(props) {
     <div className="horo-container">
   
      {props.data.map((item, key) => (
-        <div key={key} className="sign-box">
-          <p>{item.sign}</p>
+        <div key={key} className="sign-box" onClick={props.onBoxClick}>
+          <p>{item.sign} </p>
+         
           </div>
     ))}
       
