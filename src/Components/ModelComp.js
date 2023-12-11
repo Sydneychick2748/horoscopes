@@ -1,36 +1,36 @@
 
-import { useState } from 'react';
+// import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function ModelComp() {
-  const [show, setShow] = useState(false);
+function ModelComp({closeModal,selectedButton}) {
+  console.log(closeModal, "closeModel")
+ 
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  
+    return (
+      <div
+        className="modal show"
+        style={{ display: 'block', position: 'initial' }}
+      >
+        <Modal.Dialog>
+        <Modal.Header closeButton onClick={closeModal}>
+  {/* Your header content here */}
+</Modal.Header>
 
-  return (
-    <>
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
+  
+          <Modal.Body>
+            <p>You Want To Learn About:  {selectedButton.sign}</p>
+          </Modal.Body>
+  
+          <Modal.Footer>
+          <Button variant="secondary" onClick={closeModal}>Close Modal</Button>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
-  );
-}
+          
+          </Modal.Footer>
+        </Modal.Dialog>
+      </div>
+    );
+  }
 
 export default ModelComp;

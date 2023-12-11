@@ -2,10 +2,47 @@
 
 /* App.css */
 
-/* ... existing styles ... */
-.App{
-  text-align:center ;
+.App {
+  text-align: center;
 }
+
+
+.startBtn {
+  height: 40px;
+  margin: 10px;
+  font-size: 16px;
+  background-color: #568369; /* Green color for the start button */
+  border-color: #274332; /* Slightly darker border color */
+  color: #fff; /* White text color */
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* "Click here to see today's Date" button styles */
+.seeDateBtn {
+  height: 40px;
+  margin: 10px;
+  font-size: 16px;
+  background-color: #34566c; /* Blue color for the button */
+  border-color: #234052; /* Slightly darker border color */
+  color: #fff; /* White text color */
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Bold style for the paragraph in the modal */
+.modal-body p {
+  color: #555;
+  font-weight: bold;
+}
+
+
+
+
+
+
+
+
 .horo-container {
   display: flex;
   flex-wrap: wrap;
@@ -15,20 +52,63 @@
 .sign-box {
   width: 100px;
   height: 100px;
-  background-color: #f0f0f0;
-  border: 1px solid #999;
+  background-color: #34566c; /* Blue color for the button */
+  border-color: #234052; /* Slightly darker border color */
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 5px;
+  color: #fff; /* White text color */
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
 }
 
-
-
 /* Update the button styles */
-.yesBtn, .noBtn {
-
+.yesBtn,
+.noBtn {
   height: 50px;
   margin: 5px;
   font-size: 13px;
 }
+
+/* Custom styles for buttons */
+.yesBtn {
+  background-color: #568369; /* Green color for the start button */
+  border-color: #274332; /* Slightly darker border color */
+  
+  color: #fff; /* White text color */
+}
+
+.noBtn {
+  background-color: #512c28; /* Red color for "No" button */
+  border-color: #7b362f; /* Slightly darker border color */
+  color: #fff; /* White text color */
+}
+
+/* Custom styles for paragraphs within the modal */
+.modal-body p {
+  color: #555;
+}
+
+/* Custom styles for the modal */
+.modal-content {
+  border-radius: 10px;
+}
+
+.modal-header,
+.modal-footer {
+  background-color: #34566c; /* Blue color for the button */
+  
+  color: #fff;
+  border-bottom: 1px solid #234052;
+}
+
+/* Close button styles */
+.close {
+  color: #fff;
+}
+
+.sign-box:hover {
+  background-color: #2980b9; /* Slightly darker blue color on hover */
+}
+

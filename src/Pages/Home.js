@@ -11,31 +11,34 @@ function Home({ dataProps }) {
   const [noBtnText, setNoBtnText] = useState(false);
   const [yesBtnData, setYesBtnData] = useState([]);
   const [seeDateText, setSeeDateText] = useState(false);
- 
-  
+  const [isBoxClicked, setIsBoxClicked] = useState(false);
+  const [selectedBox, setSelectedBox] = useState(null);
+
   const currentDate = new Date();
   const options = { year: "numeric", month: "2-digit", day: "2-digit" };
   const formattedDate = currentDate.toLocaleDateString("en-US", options);
 
-  function getCurrentZodiacSign(todayDate) {
+  function getCurrentZodiacSign() {
     // Find the matching zodiac sign
     const currentZodiacSign = data.find((horoscope) => {
-      const dateRange = horoscope.dateRange.split("-")
-      console.log(dateRange, "dateRange");
+      const dateRange = horoscope.dateRange.split("-");
+      // console.log(dateRange, "dateRange");
 
-      const currentDate = new Date(todayDate).toLocaleDateString('en-us');
-      const startDate = new Date(dateRange[0]).toLocaleDateString('en-us');
-      const endDate = new Date(dateRange[1]).toLocaleDateString('en-us');
-      console.log(endDate, currentDate, startDate.split().pop().toString(), "endDate");
-  
+      const startDate = new Date(
+        dateRange[0] + " " + currentDate.getFullYear()
+      );
+      const endDate = new Date(dateRange[1] + " " + currentDate.getFullYear());
+
+      // console.log(endDate, currentDate, startDate.split().pop().toString(), "endDate");
+
       if (currentDate >= startDate && currentDate <= endDate) {
         return true;
       }
-  
+
       return false;
     });
-  
-    return currentZodiacSign ? currentZodiacSign.sign : "Unknown";
+
+    return currentZodiacSign;
   }
 
   function startBtnClick() {
@@ -50,12 +53,15 @@ function Home({ dataProps }) {
     setYesBtnData(signNames);
   }
 
-
   // Function to handle box clicks
-  function handleEachBoxClick() {
+  function handleEachBoxClick(selectBox) {
+    setIsBoxClicked(true);
+    setSelectedBox(selectBox)
     // Implement your logic for handling box click here
     console.log(`Box clicked`);
   }
+
+  
 
   function noBtnClick() {
     // console.log("clicked");
@@ -68,12 +74,12 @@ function Home({ dataProps }) {
     getCurrentZodiacSign();
   }
 
-
-
+  const sign = getCurrentZodiacSign();
 
   return (
     <div className="home-container">
-      <button onClick={startBtnClick}>{showText ? "Hide" : "Start"}</button>
+      <button className="startBtn" onClick={startBtnClick}>{showText ? "Hide" : "Start"}</button>
+
       {/* this should only appear if the showText is true  */}
       {showText ? (
         <div>
@@ -87,7 +93,7 @@ function Home({ dataProps }) {
             </button>
             {seeDateText && (
               <DateComponent
-              currentZodiacSign={getCurrentZodiacSign}
+                currentZodiacSign={sign}
                 currentDate={formattedDate}
               />
             )}
@@ -105,11 +111,10 @@ function Home({ dataProps }) {
               onBoxClick={handleEachBoxClick} // Pass the handleEachBoxClick function
             />
           )}
-
+          {isBoxClicked ? <ModelComp closeModal={() => setIsBoxClicked(false)} selectedButton={selectedBox} /> : null}
 
           {/* when the button is clicked the data is showen and now on the data i need a button on every object to click  */}
 
-           <ModelComp/>
           {/* this has to show some text saying sorry to see you go when clicked */}
           <button className="noBtn" onClick={noBtnClick}>
             No, Thank you!

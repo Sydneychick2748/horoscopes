@@ -1,8 +1,14 @@
 import React from "react";
 
-function DateComponent({ currentDate, zodiacSignName }) {
+
+function DateComponent({ currentDate, currentZodiacSign }) {
+    const zodiacSignName = currentZodiacSign ? currentZodiacSign.sign : "Unknown"
     console.log(currentDate, zodiacSignName , "props for the date comp")
   
+
+
+
+
   return (
     <div className="date-container">
       {currentDate}

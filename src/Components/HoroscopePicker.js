@@ -7,15 +7,11 @@ function HoroscopePicker(props) {
   return (
 
     <div className="horo-container">
-  
-     {props.data.map((item, key) => (
-        <div key={key} className="sign-box" onClick={props.onBoxClick}>
+      {props.data.map((item, key) => (
+        <div key={key} className="sign-box" onClick={() => props.onBoxClick(item)}>
           <p>{item.sign} </p>
-         
-          </div>
-    ))}
-      
-   
+        </div>
+      ))}
     </div>
   );
 }
