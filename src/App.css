@@ -112,3 +112,31 @@
   background-color: #2980b9; /* Slightly darker blue color on hover */
 }
 
+
+/* YourComponent.css */
+
+.form-container {
+  background-color: #add8e6; /* Light blue color */
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 300px; /* Adjust width as needed */
+  margin: auto; /* Center the form horizontally */
+  margin-top: 50px; /* Add some top margin for spacing */
+}
+
+
+input {
+  width: 100%; /* Make the input full width */
+  padding: 10px;
+  box-sizing: border-box;
+  margin-top: 5px;
+  margin-bottom: 20px !important;
+}
+
+
+button{
+  background-color: #34566c; /* Blue color for the button */
+  border-color: #234052; /* Slightly darker border color */
+  color:white
+}
